@@ -15,14 +15,24 @@ function App() {
         {id: 3, title: "ReactJS", isDone: false}
     ])
 
+    const [filter, setFilter] = useState('all')
+
     const removeTask = (taskId: number) => {
         setTask(task.filter(t => t.id !== taskId))
+    }
+
+    let filtered = task
+    if (filter === 'active') {
+        filtered = task.filter(f => f.isDone)
+    }
+    if (filter === 'completed') {
+        filtered = task.filter(f => !f.isDone)
     }
 
 
     return (
         <div className="App">
-            <Todolist title={'What to learn'} tasks={task} removeTask={removeTask}/>
+            <Todolist title={'What to learn'} tasks={filtered} removeTask={removeTask}/>
         </div>
     );
 }
