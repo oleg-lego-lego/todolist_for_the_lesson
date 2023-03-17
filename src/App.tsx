@@ -8,6 +8,8 @@ export type TaskType = {
     isDone: boolean
 }
 
+export type FilterType = 'all' | 'active' | 'completed'
+
 function App() {
     const [task, setTask] = useState<TaskType[]>([
         {id: 1, title: "HTML & CSS", isDone: true},
@@ -15,7 +17,7 @@ function App() {
         {id: 3, title: "ReactJS", isDone: false}
     ])
 
-    const [filter, setFilter] = useState('all')
+    const [filter, setFilter] = useState<FilterType>('all')
 
     const removeTask = (taskId: number) => {
         setTask(task.filter(t => t.id !== taskId))
