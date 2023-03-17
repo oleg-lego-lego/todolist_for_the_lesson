@@ -31,10 +31,19 @@ function App() {
         filtered = task.filter(f => !f.isDone)
     }
 
+    const filteredTask = (value: FilterType) => {
+        setFilter(value)
+    }
+
 
     return (
         <div className="App">
-            <Todolist title={'What to learn'} tasks={filtered} removeTask={removeTask}/>
+            <Todolist
+                title={'What to learn'}
+                tasks={filtered}
+                removeTask={removeTask}
+                filteredTask={filteredTask}
+            />
         </div>
     );
 }
