@@ -23,6 +23,10 @@ function App() {
         setTask(task.filter(t => t.id !== taskId))
     }
 
+    const addTask = (newTask: string) => {
+        console.log(newTask)
+    }
+
     let filtered = task
     if (filter === 'active') {
         filtered = task.filter(f => f.isDone)
@@ -43,6 +47,7 @@ function App() {
                 tasks={filtered}
                 removeTask={removeTask}
                 filteredTask={filteredTask}
+                addTask={addTask}
             />
         </div>
     );
