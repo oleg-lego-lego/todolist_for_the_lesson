@@ -6,7 +6,7 @@ type TodolistPropsType = {
     tasks: TaskType[]
     removeTask: (taskId: string) => void
     filteredTask: (value: FilterType) => void
-    addTask: (newTask: string) => void
+    addTask: (newTitle: string) => void
 }
 
 export const Todolist = (props: TodolistPropsType) => {

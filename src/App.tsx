@@ -24,8 +24,9 @@ function App() {
         setTask(task.filter(t => t.id !== taskId))
     }
 
-    const addTask = (newTask: string) => {
-        console.log(newTask)
+    const addTask = (newTitle: string) => {
+        const newTask = {id: v1(), title: newTitle, isDone: true}
+        setTask([newTask, ...task])
     }
 
     let filtered = task
