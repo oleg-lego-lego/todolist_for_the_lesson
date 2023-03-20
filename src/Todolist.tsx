@@ -16,12 +16,17 @@ export const Todolist = (props: TodolistPropsType) => {
         setNewTitle(e.currentTarget.value)
     }
 
+    const addTaskHandler = () => {
+        props.addTask(newTitle)
+        setNewTitle('')
+    }
+
     return (
         <div>
             <h3>{props.title}</h3>
             <div>
                 <input value={newTitle} onChange={onChangeInput}/>
-                <button onClick={() => props.addTask(newTitle)}>+</button>
+                <button onClick={addTaskHandler}>+</button>
             </div>
             <ul>
                 {props.tasks.map((t) => {
