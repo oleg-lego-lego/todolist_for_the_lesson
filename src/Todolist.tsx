@@ -12,6 +12,7 @@ type TodolistPropsType = {
 
 export const Todolist = (props: TodolistPropsType) => {
     const [newTitle, setNewTitle] = useState('')
+    const [error, setError] = useState<string | null>(null)
 
     const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
         setNewTitle(e.currentTarget.value)
@@ -21,10 +22,13 @@ export const Todolist = (props: TodolistPropsType) => {
         if (newTitle.trim() !== '') {
             props.addTask(newTitle.trim())
             setNewTitle('')
+        } else {
+            setError('Title is required')
         }
     }
 
     const onKeyDownAddTAsk = (e: KeyboardEvent<HTMLInputElement>) => {
+        setError(null)
         if (e.key === 'Enter') {
             addTaskHandler()
         }
@@ -38,15 +42,25 @@ export const Todolist = (props: TodolistPropsType) => {
         <div>
             <h3>{props.title}</h3>
             <div>
-                <input value={newTitle} onChange={onChangeInput} onKeyDown={onKeyDownAddTAsk}/>
+                <input
+                    value={newTitle}
+                    onChange={onChangeInput}
+                    onKeyDown={onKeyDownAddTAsk}
+                    className={error ? 'error' : ''}
+                />
                 <button onClick={addTaskHandler}>+</button>
+                {error && <div className={error ? 'errorMessage' : ''}>{error}</div>}
             </div>
             <ul>
                 {props.tasks.map((t) => {
                     return (
                         <li key={t.id}>
                             <button onClick={() => props.removeTask(t.id)}>x</button>
-                            <input type="checkbox" checked={t.isDone} onChange={(e) => onChangeCheckbox(t.id, e)}/>
+                            <input
+                                type="checkbox"
+                                checked={t.isDone}
+                                onChange={(e) => onChangeCheckbox(t.id, e)}
+                            />
                             <span>{t.title}</span>
                         </li>
                     )
