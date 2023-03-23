@@ -18,8 +18,10 @@ export const Todolist = (props: TodolistPropsType) => {
     }
 
     const addTaskHandler = () => {
-        props.addTask(newTitle)
-        setNewTitle('')
+        if (newTitle.trim() !== '') {
+            props.addTask(newTitle.trim())
+            setNewTitle('')
+        }
     }
 
     const onKeyDownAddTAsk = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -28,7 +30,7 @@ export const Todolist = (props: TodolistPropsType) => {
         }
     }
 
-    const onChangeCheckbox = (taskId: string,e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeCheckbox = (taskId: string, e: ChangeEvent<HTMLInputElement>) => {
         props.changeTaskStatus(taskId, e.currentTarget.checked)
     }
 
@@ -44,7 +46,7 @@ export const Todolist = (props: TodolistPropsType) => {
                     return (
                         <li key={t.id}>
                             <button onClick={() => props.removeTask(t.id)}>x</button>
-                            <input type="checkbox" checked={t.isDone} onChange={(e)=>onChangeCheckbox(t.id, e)}/>
+                            <input type="checkbox" checked={t.isDone} onChange={(e) => onChangeCheckbox(t.id, e)}/>
                             <span>{t.title}</span>
                         </li>
                     )
