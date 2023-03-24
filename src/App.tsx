@@ -3,7 +3,7 @@ import './App.css';
 import {Todolist} from "./Todolist";
 import {v1} from "uuid";
 
-type TodolistType= {
+type TodolistType = {
     id: string
     title: string
     filter: FilterType
@@ -60,15 +60,21 @@ function App() {
 
     return (
         <div className="App">
-            <Todolist
-                title={'What to learn'}
-                tasks={filtered}
-                removeTask={removeTask}
-                filteredTask={filteredTask}
-                addTask={addTask}
-                changeTaskStatus={changeTaskStatus}
-                filter={filter}
-            />
+            {todolist.map(t => {
+                return (
+                    <Todolist
+                        key={t.id}
+                        title={t.title}
+                        tasks={filtered}
+                        removeTask={removeTask}
+                        filteredTask={filteredTask}
+                        addTask={addTask}
+                        changeTaskStatus={changeTaskStatus}
+                        filter={t.filter}
+                    />
+                )
+            })}
+
         </div>
     );
 }
