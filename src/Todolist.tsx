@@ -7,7 +7,7 @@ type TodolistPropsType = {
     tasks: TaskType[]
     removeTask: (todolistId: string, taskId: string) => void
     filteredTask: (todolistId: string, filter: FilterType) => void
-    addTask: (newTitle: string) => void
+    addTask: (todolistId: string, newTitle: string) => void
     changeTaskStatus: (taskId: string, isDone: boolean) => void
     filter: FilterType
 }
@@ -22,7 +22,7 @@ export const Todolist = (props: TodolistPropsType) => {
 
     const addTaskHandler = () => {
         if (newTitle.trim() !== '') {
-            props.addTask(newTitle.trim())
+            props.addTask(props.todolistId, newTitle.trim())
             setNewTitle('')
         } else {
             setError('Title is required')
@@ -57,7 +57,7 @@ export const Todolist = (props: TodolistPropsType) => {
                 {props.tasks.map((t) => {
                     return (
                         <li key={t.id} className={t.isDone ? 'isDone' : ''}>
-                            <button onClick={() => props.removeTask(props.todolistId,t.id)}>x</button>
+                            <button onClick={() => props.removeTask(props.todolistId, t.id)}>x</button>
                             <input
                                 type="checkbox"
                                 checked={t.isDone}
