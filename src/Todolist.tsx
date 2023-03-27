@@ -8,7 +8,7 @@ type TodolistPropsType = {
     removeTask: (todolistId: string, taskId: string) => void
     filteredTask: (todolistId: string, filter: FilterType) => void
     addTask: (todolistId: string, newTitle: string) => void
-    changeTaskStatus: (taskId: string, isDone: boolean) => void
+    changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
     filter: FilterType
 }
 
@@ -37,7 +37,7 @@ export const Todolist = (props: TodolistPropsType) => {
     }
 
     const onChangeCheckbox = (taskId: string, e: ChangeEvent<HTMLInputElement>) => {
-        props.changeTaskStatus(taskId, e.currentTarget.checked)
+        props.changeTaskStatus(props.todolistId, taskId, e.currentTarget.checked)
     }
 
     return (
