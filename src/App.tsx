@@ -71,6 +71,10 @@ function App() {
         setTask({[todolistId]: [], ...task})
     }
 
+    const editableSpanTitle = (todolistId: string, taskId: string, title: string) => {
+        setTask({...task, [todolistId]: task[todolistId].map(el => el.id === taskId ? {...el, title} : el)})
+    }
+
 
     return (
         <div className="App">
@@ -97,6 +101,7 @@ function App() {
                         changeTaskStatus={changeTaskStatus}
                         filter={t.filter}
                         removeTodolist={removeTodolist}
+                        editableSpanTitle={editableSpanTitle}
                     />
                 )
             })}
