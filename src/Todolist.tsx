@@ -23,13 +23,17 @@ export const Todolist = (props: TodolistPropsType) => {
         props.removeTodolist(props.todolistId)
     }
 
+    const AddItemFormHandler = (title: string) => {
+        props.addTask(props.todolistId, title)
+    }
+
     return (
         <div>
             <h3>
                 {props.title}
                 <button onClick={removeTodolistHandler}>x</button>
             </h3>
-            <AddItemForm callBack={()=> {}}/>
+            <AddItemForm callBack={AddItemFormHandler}/>
             <ul>
                 {props.tasks.map((t) => {
                     return (
