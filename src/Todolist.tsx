@@ -53,13 +53,15 @@ export const Todolist = (props: TodolistPropsType) => {
                 {props.tasks.map((t) => {
                     return (
                         <li key={t.id} className={t.isDone ? 'isDone' : ''}>
-                            <button onClick={() => props.removeTask(props.todolistId, t.id)}>x</button>
                             <input
                                 type="checkbox"
                                 checked={t.isDone}
                                 onChange={(e) => onChangeCheckbox(t.id, e)}
                             />
                             <EditableSpan title={t.title} callBack={(title) => editableSpanTaskTitle(t.id, title)}/>
+                            <IconButton onClick={() => props.removeTask(props.todolistId, t.id)}>
+                                <DeleteIcon />
+                            </IconButton>
                         </li>
                     )
                 })}
