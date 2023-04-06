@@ -4,6 +4,7 @@ import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
 
 type TodolistPropsType = {
     todolistId: string
@@ -45,7 +46,7 @@ export const Todolist = (props: TodolistPropsType) => {
             <h3>
                 <EditableSpan title={props.title} callBack={editableSpanTodolistTitle}/>
                 <IconButton onClick={removeTodolistHandler}>
-                    <DeleteIcon />
+                    <DeleteIcon/>
                 </IconButton>
             </h3>
             <AddItemForm callBack={AddItemFormHandler}/>
@@ -60,25 +61,27 @@ export const Todolist = (props: TodolistPropsType) => {
                             />
                             <EditableSpan title={t.title} callBack={(title) => editableSpanTaskTitle(t.id, title)}/>
                             <IconButton onClick={() => props.removeTask(props.todolistId, t.id)}>
-                                <DeleteIcon />
+                                <DeleteIcon/>
                             </IconButton>
                         </li>
                     )
                 })}
             </ul>
             <div>
-                <button
-                    className={props.filter === 'all' ? 'activeFilter' : ''}
-                    onClick={() => props.filteredTask(props.todolistId, 'all')}>All
-                </button>
-                <button
-                    className={props.filter === 'active' ? 'activeFilter' : ''}
-                    onClick={() => props.filteredTask(props.todolistId, 'active')}>Active
-                </button>
-                <button
-                    className={props.filter === 'completed' ? 'activeFilter' : ''}
-                    onClick={() => props.filteredTask(props.todolistId, 'completed')}>Completed
-                </button>
+                <Button
+                    variant={props.filter === 'all' ? "outlined" : "contained"} color="secondary"
+                    onClick={() => props.filteredTask(props.todolistId, 'all')}
+                >All</Button>
+
+                <Button
+                    variant={props.filter === 'active' ? "outlined" : "contained"} color="success"
+                    onClick={() => props.filteredTask(props.todolistId, 'active')}
+                >Active</Button>
+
+                <Button
+                    variant={props.filter === 'completed' ? "outlined" : "contained"} color="error"
+                    onClick={() => props.filteredTask(props.todolistId, 'completed')}
+                >Completed</Button>
             </div>
         </div>
     );
