@@ -17,16 +17,21 @@ export const todolistsReducer = (state: TodolistType[], action: ActionType): Tod
     }
 }
 
-export type  ActionType = removeTodolistACType | addTodolistACType
+export type  ActionType = RemoveTodolistACType | AddTodolistACType | ChangeTodolistTitleACType
 
 
-type removeTodolistACType = ReturnType<typeof removeTodolistAC>
+type RemoveTodolistACType = ReturnType<typeof removeTodolistAC>
 export const removeTodolistAC = (todolistId: string) => {
     return {type: 'REMOVE-TODOLIST', todolistId} as const
 }
 
-type addTodolistACType = ReturnType<typeof addTodolistAC>
+type AddTodolistACType = ReturnType<typeof addTodolistAC>
 export const addTodolistAC = (title: string) => {
     return {type: 'ADD-TODOLIST', title} as const
+}
+
+type ChangeTodolistTitleACType = ReturnType<typeof changeTodolistTitleAC>
+export const changeTodolistTitleAC = (todolistId: string, newTitle: string) => {
+    return {type: 'CHANGE-TODOLIST-TITLE', todolistId, newTitle} as const
 }
 
