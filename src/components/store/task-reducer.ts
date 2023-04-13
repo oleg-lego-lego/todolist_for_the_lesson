@@ -1,6 +1,8 @@
-export const taskReducer = (state: any, action: any): any => {
+import {TaskType} from "../../App";
+
+export const tasksReducer = (state: TaskType[], action: ActionType): TaskType[] => {
     switch (action.type) {
-        case '': {
+        case 'REMOVE-TASK': {
             return state
         }
         default: {
@@ -9,12 +11,12 @@ export const taskReducer = (state: any, action: any): any => {
     }
 }
 
-export type  ActionType = ''
+export type  ActionType = RemoveTaskACType
 
 
-type taskACType = ReturnType<typeof taskAC>
-export const taskAC = (todolistId: string) => {
-    return {type: '', todolistId} as const
+type RemoveTaskACType = ReturnType<typeof removeTaskAC>
+export const removeTaskAC = (todolistId: string, taskId: string) => {
+    return {type: 'REMOVE-TASK', todolistId, taskId} as const
 }
 
 
