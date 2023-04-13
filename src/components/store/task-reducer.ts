@@ -1,6 +1,6 @@
-import {TaskType} from "../../App";
+import {TasksStateType} from "../../App";
 
-export const tasksReducer = (state: TaskType[], action: ActionType): TaskType[] => {
+export const tasksReducer = (state: TasksStateType, action: ActionType): TasksStateType => {
     switch (action.type) {
         case 'REMOVE-TASK': {
             return state
