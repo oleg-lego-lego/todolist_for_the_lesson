@@ -6,7 +6,7 @@ import {AddItemForm} from "./components/AddItemForm";
 import ButtonAppBar from "./components/ButtonAppBar";
 import {Container, Grid, Paper} from "@mui/material";
 import {ActionTodolistType, todolistsReducer} from "./components/store/todolists-reducer";
-import {tasksReducer} from "./components/store/task-reducer";
+import {ActionTaskType, tasksReducer} from "./components/store/task-reducer";
 
 export type TodolistType = {
     id: string
@@ -37,7 +37,7 @@ function AppWithReducer() {
         ])
 
 
-    const [task, dispatchTask] = useReducer(tasksReducer, {
+    const [task, dispatchTask] = useReducer<Reducer<TasksStateType, ActionTaskType>>(tasksReducer, {
             [todolist1]: [
                 {id: v1(), title: "HTML & CSS", isDone: true},
                 {id: v1(), title: "JS", isDone: true},
