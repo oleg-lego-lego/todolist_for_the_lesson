@@ -30,9 +30,9 @@ export const Todolist = (props: TodolistPropsType) => {
         props.removeTodolist(props.todolistId)
     }
 
-    const AddItemFormHandler = (title: string) => {
+    const AddItemFormHandler = React.useCallback((title: string) => {
         props.addTask(props.todolistId, title)
-    }
+    },[props.addTask, props.todolistId])
 
     const editableSpanTaskTitle = (taskId: string, title: string) => {
         props.changeTaskTitle(props.todolistId, taskId, title)

@@ -6,7 +6,7 @@ type AddItemFormPropsType = {
     callBack: (title: string) => void
 }
 
-export const AddItemForm = (props: AddItemFormPropsType) => {
+export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
     console.log('addItemForm')
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
@@ -53,5 +53,5 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
             >+</Button>
         </div>
     );
-};
+});
 

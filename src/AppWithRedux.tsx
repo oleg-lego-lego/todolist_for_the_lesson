@@ -45,9 +45,9 @@ function AppWithRedux() {
         dispatch(removeTaskAC(todolistId, taskId))
     }
 
-    const addTask = (todolistId: string, newTitle: string) => {
+    const addTask = React.useCallback((todolistId: string, newTitle: string) => {
         dispatch(addTaskAC(todolistId, newTitle))
-    }
+    }, [dispatch])
 
     const filteredTask = (todolistId: string, filter: FilterType) => {
         dispatch(filteredTaskAC(todolistId, filter))
@@ -61,9 +61,9 @@ function AppWithRedux() {
         dispatch(removeTodolistAC(todolistId))
     }
 
-    const addTodolist = (title: string) => {
+    const addTodolist = React.useCallback((title: string) => {
         dispatch(addTodolistAC(title))
-    }
+    }, [dispatch])
 
     const changeTaskTitle = (todolistId: string, taskId: string, title: string) => {
         dispatch(changeTaskTitleAC(todolistId, taskId, title))
