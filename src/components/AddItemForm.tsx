@@ -7,6 +7,7 @@ type AddItemFormPropsType = {
 }
 
 export const AddItemForm = (props: AddItemFormPropsType) => {
+    console.log('addItemForm')
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
 
@@ -15,7 +16,9 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
     }
 
     const onKeyDownAddTAsk = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
+        if (error) {
+            setError(null)
+        }
         if (e.key === 'Enter') {
             addTaskHandler()
         }
