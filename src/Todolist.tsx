@@ -22,7 +22,6 @@ type TodolistPropsType = {
 }
 
 export const Todolist = React.memo((props: TodolistPropsType) => {
-    console.log('todolist')
     const onChangeCheckbox = (taskId: string, e: ChangeEvent<HTMLInputElement>) => {
         props.changeTaskStatus(props.todolistId, taskId, e.currentTarget.checked)
     }
@@ -33,7 +32,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
 
     const AddItemFormHandler = React.useCallback((title: string) => {
         props.addTask(props.todolistId, title)
-    },[props.addTask, props.todolistId])
+    }, [props.addTask, props.todolistId])
 
     const editableSpanTaskTitle = (taskId: string, title: string) => {
         props.changeTaskTitle(props.todolistId, taskId, title)
@@ -41,6 +40,14 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
 
     const editableSpanTodolistTitle = (title: string) => {
         props.changeTodolistTitle(props.todolistId, title)
+    }
+
+    let tasks = props.tasks
+    if (props.filter === 'active') {
+        tasks = tasks.filter(f => !f.isDone)
+    }
+    if (props.filter === 'completed') {
+        tasks = tasks.filter(f => f.isDone)
     }
 
     return (
@@ -53,7 +60,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
             </h3>
             <AddItemForm callBack={AddItemFormHandler}/>
             <ul>
-                {props.tasks.map((t) => {
+                {tasks.map((t) => {
                     return (
                         <li key={t.id} className={t.isDone ? 'isDone' : ''}>
                             <Checkbox checked={t.isDone} onChange={(e) => onChangeCheckbox(t.id, e)}/>

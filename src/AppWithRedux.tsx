@@ -85,13 +85,7 @@ function AppWithRedux() {
 
                 <Grid container spacing={3}>
                     {todolist.map(t => {
-                        let filtered = task[t.id]
-                        if (t.filter === 'active') {
-                            filtered = task[t.id].filter(f => !f.isDone)
-                        }
-                        if (t.filter === 'completed') {
-                            filtered = task[t.id].filter(f => f.isDone)
-                        }
+
 
                         return (
                             <Grid item>
@@ -100,7 +94,7 @@ function AppWithRedux() {
                                         key={t.id}
                                         todolistId={t.id}
                                         title={t.title}
-                                        tasks={filtered}
+                                        tasks={task[t.id]}
                                         removeTask={removeTask}
                                         filteredTask={filteredTask}
                                         addTask={addTask}

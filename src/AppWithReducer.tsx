@@ -115,7 +115,7 @@ function AppWithReducer() {
                             filtered = task[t.id].filter(f => !f.isDone)
                         }
                         if (t.filter === 'completed') {
-                            filtered = task[t.id].filter(f => f.isDone)
+                           filtered = task[t.id].filter(f => f.isDone)
                         }
 
                         return (
