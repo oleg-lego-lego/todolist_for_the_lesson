@@ -85,8 +85,6 @@ function AppWithRedux() {
 
                 <Grid container spacing={3}>
                     {todolist.map(t => {
-
-
                         return (
                             <Grid item>
                                 <Paper style={{padding: '10px'}} elevation={3}>

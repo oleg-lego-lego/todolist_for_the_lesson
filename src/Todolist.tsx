@@ -32,15 +32,15 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
 
     const AddItemFormHandler = React.useCallback((title: string) => {
         props.addTask(props.todolistId, title)
-    }, [props.addTask, props.todolistId])
+    }, [props])
 
-    const editableSpanTaskTitle = (taskId: string, title: string) => {
+    const editableSpanTaskTitle = React.useCallback((taskId: string, title: string) => {
         props.changeTaskTitle(props.todolistId, taskId, title)
-    }
+    }, [props])
 
-    const editableSpanTodolistTitle = (title: string) => {
+    const editableSpanTodolistTitle = React.useCallback((title: string) => {
         props.changeTodolistTitle(props.todolistId, title)
-    }
+    }, [props])
 
     let tasks = props.tasks
     if (props.filter === 'active') {
