@@ -21,7 +21,8 @@ type TodolistPropsType = {
     changeTodolistTitle: (todolistId: string, title: string) => void
 }
 
-export const Todolist = (props: TodolistPropsType) => {
+export const Todolist = React.memo((props: TodolistPropsType) => {
+    console.log('todolist')
     const onChangeCheckbox = (taskId: string, e: ChangeEvent<HTMLInputElement>) => {
         props.changeTaskStatus(props.todolistId, taskId, e.currentTarget.checked)
     }
@@ -82,4 +83,4 @@ export const Todolist = (props: TodolistPropsType) => {
             </div>
         </div>
     );
-};
+});
