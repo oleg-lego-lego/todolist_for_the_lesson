@@ -10,7 +10,7 @@ export type  ActionTodolistType =
     | GetTodoListsACType
 
 
-const initialState: TodolistDomainType[]  = []
+const initialState: TodolistDomainType[] = []
 type FilterType = 'all' | 'active' | 'completed'
 export type TodolistDomainType = TodolistType & {
     filter: FilterType
@@ -25,7 +25,13 @@ export const todolistsReducer = (state: TodolistDomainType[] = initialState, act
             return state.filter(f => f.id !== action.todolistId)
         }
         case "ADD-TODOLIST": {
-            const newTodolist: TodolistDomainType = {id: action.todolistId, title: action.title, filter: 'all', addedDate: '', order: 0}
+            const newTodolist: TodolistDomainType = {
+                id: action.todolistId,
+                title: action.title,
+                filter: 'all',
+                addedDate: '',
+                order: 0
+            }
             return [newTodolist, ...state]
         }
         case "CHANGE-TODOLIST-TITLE": {
@@ -65,7 +71,7 @@ export const getTodoListsAC = (todoList: TodolistType[]) => {
     return {type: 'GET-TODO-LIST', todoList} as const
 }
 
-export const getTodoListThunk = () => (dispatch: Dispatch) => {
+export const getTodoListTС = (dispatch: Dispatch) => {
     todoListsAPI.getTodoLists()
         .then((res) => {
             dispatch(getTodoListsAC(res.data))

@@ -6,7 +6,7 @@ import ButtonAppBar from "./components/ButtonAppBar";
 import {Container, Grid, Paper} from "@mui/material";
 import {
     addTodolistAC, changeTodolistTitleAC,
-    filteredTaskAC,
+    filteredTaskAC, getTodoListTС,
     removeTodolistAC
 } from "./components/store/todolists-reducer";
 import {
@@ -14,8 +14,8 @@ import {
     changeTaskStatusAC, changeTaskTitleAC,
     removeTaskAC,
 } from "./components/store/task-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./store/store";
+import {useSelector} from "react-redux";
+import {AppRootStateType, useAppDispatch} from "./store/store";
 
 export type TodolistType = {
     id: string
@@ -39,7 +39,7 @@ function AppWithRedux() {
     let todolist = useSelector<AppRootStateType, TodolistType[]>((state => state.todolists))
     let task = useSelector<AppRootStateType, TasksStateType>((state => state.tasks))
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const removeTask = React.useCallback((todolistId: string, taskId: string) => {
         dispatch(removeTaskAC(todolistId, taskId))
@@ -74,7 +74,7 @@ function AppWithRedux() {
     }, [dispatch])
 
     useEffect(() => {
-        //dispatch(getTodoListThunk())
+        dispatch(getTodoListTС)
     }, [])
 
 
