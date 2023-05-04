@@ -1,23 +1,32 @@
-import {FilterType, TodolistType} from "../../App";
 import {v1} from "uuid";
+import {TodolistType} from "../../api/todolist-api";
 
 export type  ActionTodolistType =
     RemoveTodolistACType
     | AddTodolistACType
     | ChangeTodolistTitleACType
     | filteredTaskACType
+    | GetTodoListsACType
 
-const initialState: TodolistType[] = []
 
-export const todolistsReducer = (state = initialState, action: ActionTodolistType): TodolistType[] => {
+const initialState: TodolistDomainType[]  = []
+type FilterType = 'all' | 'active' | 'completed'
+export type TodolistDomainType = TodolistType & {
+    filter: FilterType
+}
+
+export const todolistsReducer = (state: TodolistDomainType[] = initialState, action: ActionTodolistType): TodolistType[] => {
     switch (action.type) {
+        case "GET-TODO-LIST": {
+            return action.todoList.map(el => ({...el, filter: 'all'}))
+        }
         case 'REMOVE-TODOLIST': {
             return state.filter(f => f.id !== action.todolistId)
         }
-        case "ADD-TODOLIST": {
-            const newTodolist: TodolistType = {id: action.todolistId, title: action.title, filter: 'all'}
-            return [newTodolist, ...state]
-        }
+        // case "ADD-TODOLIST": {
+        //     const newTodolist: TodolistType = {id: action.todolistId, title: action.title, filter: 'all'}
+        //     return [newTodolist, ...state]
+        // }
         case "CHANGE-TODOLIST-TITLE": {
             return state.map(el => el.id === action.todolistId ? {...el, title: action.newTitle} : el)
         }
@@ -48,5 +57,10 @@ export const changeTodolistTitleAC = (todolistId: string, newTitle: string) => {
 type filteredTaskACType = ReturnType<typeof filteredTaskAC>
 export const filteredTaskAC = (todolistId: string, filter: FilterType) => {
     return {type: 'CHANGE-TODOLIST-FILTER', todolistId, filter} as const
+}
+
+export type GetTodoListsACType = ReturnType<typeof getTodoListsAC>
+export const getTodoListsAC = (todoList: TodolistType[]) => {
+    return {type: 'GET-TODO-LIST', todoList} as const
 }
 

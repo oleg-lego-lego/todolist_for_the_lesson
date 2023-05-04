@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Todolist} from "./Todolist";
 import {AddItemForm} from "./components/AddItemForm";
@@ -6,7 +6,7 @@ import ButtonAppBar from "./components/ButtonAppBar";
 import {Container, Grid, Paper} from "@mui/material";
 import {
     addTodolistAC, changeTodolistTitleAC,
-    filteredTaskAC,
+    filteredTaskAC, getTodoListsAC,
     removeTodolistAC
 } from "./components/store/todolists-reducer";
 import {
@@ -16,6 +16,7 @@ import {
 } from "./components/store/task-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./store/store";
+import {todoListsAPI} from "./api/todolist-api";
 
 export type TodolistType = {
     id: string
@@ -72,6 +73,13 @@ function AppWithRedux() {
     const changeTodolistTitle = React.useCallback((todolistId: string, title: string) => {
         dispatch(changeTodolistTitleAC(todolistId, title))
     }, [dispatch])
+
+    useEffect(() => {
+        todoListsAPI.getTodoLists()
+            .then((res) => {
+                dispatch(getTodoListsAC(res.data))
+            })
+    }, [])
 
 
     return (
