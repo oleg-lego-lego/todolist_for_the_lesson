@@ -6,7 +6,7 @@ import ButtonAppBar from "./components/ButtonAppBar";
 import {Container, Grid, Paper} from "@mui/material";
 import {
     addTodolistAC, changeTodolistTitleAC,
-    filteredTaskAC, getTodoListsAC,
+    filteredTaskAC,
     removeTodolistAC
 } from "./components/store/todolists-reducer";
 import {
@@ -16,7 +16,6 @@ import {
 } from "./components/store/task-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./store/store";
-import {todoListsAPI} from "./api/todolist-api";
 
 export type TodolistType = {
     id: string
@@ -75,10 +74,7 @@ function AppWithRedux() {
     }, [dispatch])
 
     useEffect(() => {
-        todoListsAPI.getTodoLists()
-            .then((res) => {
-                dispatch(getTodoListsAC(res.data))
-            })
+        //dispatch(getTodoListThunk())
     }, [])
 
 
