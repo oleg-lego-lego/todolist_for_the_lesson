@@ -12,7 +12,7 @@ import {
 import {
     addTaskAC,
     changeTaskStatusAC, changeTaskTitleAC,
-    removeTaskAC,
+    removeTaskAC, removeTasksTС,
 } from "./components/store/task-reducer";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "./store/store";
@@ -23,7 +23,7 @@ export type TodolistType = {
     filter: FilterType
 }
 
-export type TaskType = {
+type TaskType = {
     id: string
     title: string
     isDone: boolean
@@ -42,7 +42,7 @@ function AppWithRedux() {
     const dispatch = useAppDispatch()
 
     const removeTask = React.useCallback((todolistId: string, taskId: string) => {
-        dispatch(removeTaskAC(todolistId, taskId))
+        dispatch(removeTasksTС(todolistId, taskId))
     }, [dispatch])
 
     const addTask = React.useCallback((todolistId: string, newTitle: string) => {
