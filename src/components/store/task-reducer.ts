@@ -13,18 +13,15 @@ export type  ActionTaskType =
     | GetTodoListsACType
     | GetTasksACType
 
-const initialState: any = {}
+const initialState: TasksStateType = {}
+type TasksStateType = {
+    [key: string]: TaskType[]
+}
 
-export const tasksReducer = (state = initialState, action: ActionTaskType): any => {
+export const tasksReducer = (state = initialState, action: ActionTaskType): TasksStateType => {
     switch (action.type) {
         case "GET-TASKS": {
-            // const stateCopy = {...state}
-            // stateCopy[action.todolistId] = action.tasks
-            // return stateCopy
-            return {
-                ...state,
-                [action.todolistId]: [...action.tasks, ...state[action.todolistId]]
-            }
+            return {...state, [action.todolistId]: [...action.tasks, ...state[action.todolistId]]}
         }
         case "GET-TODO-LIST": {
             const copyState = {...state}
@@ -32,11 +29,11 @@ export const tasksReducer = (state = initialState, action: ActionTaskType): any 
             return copyState
         }
         case 'REMOVE-TASK': {
-            return {...state, [action.todolistId]: state[action.todolistId].filter((f: { id: string; } )=> f.id !== action.taskId)}
+            return {...state, [action.todolistId]: state[action.todolistId].filter(f => f.id !== action.taskId)}
         }
         case "ADD-TASK": {
-            const newTask = {
-                id: v1(), todoListId: action.todolistId, title: action.title, description: '',
+            const newTask: TaskType = {
+                todoListId: action.todolistId, id: v1(), title: action.title, description: '',
                 status: 0, priority: 0, startDate: '', deadline: '', order: 0, addedDate: ''
             }
             return {...state, [action.todolistId]: [newTask, ...state[action.todolistId]]}
