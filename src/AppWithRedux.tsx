@@ -10,7 +10,7 @@ import {
     removeTodolistAC
 } from "./components/store/todolists-reducer";
 import {
-    addTaskAC,
+    addTaskAC, addTasksTС,
     changeTaskStatusAC, changeTaskTitleAC,
     removeTaskAC, removeTasksTС,
 } from "./components/store/task-reducer";
@@ -46,7 +46,7 @@ function AppWithRedux() {
     }, [dispatch])
 
     const addTask = React.useCallback((todolistId: string, newTitle: string) => {
-        dispatch(addTaskAC(todolistId, newTitle))
+        dispatch(addTasksTС(todolistId, newTitle))
     }, [dispatch])
 
     const filteredTask = React.useCallback((todolistId: string, filter: FilterType) => {
