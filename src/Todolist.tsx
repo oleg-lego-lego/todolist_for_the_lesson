@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FilterType, TaskType} from "./App";
 import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";
@@ -6,6 +6,8 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import {Task} from "./components/Task";
+import {useAppDispatch} from "./store/store";
+import {getTasksTС} from "./components/store/task-reducer";
 
 type TodolistPropsType = {
     todolistId: string
@@ -22,6 +24,8 @@ type TodolistPropsType = {
 }
 
 export const Todolist = React.memo((props: TodolistPropsType) => {
+    const dispatch = useAppDispatch()
+
     const changeTaskStatus = React.useCallback((taskId: string, isDone: boolean) => {
         props.changeTaskStatus(props.todolistId, taskId, isDone)
     }, [props])
@@ -53,6 +57,10 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
     if (props.filter === 'completed') {
         tasks = tasks.filter(f => f.isDone)
     }
+
+    useEffect(() => {
+        dispatch(getTasksTС(props.todolistId))
+    }, [])
 
     return (
         <div>
