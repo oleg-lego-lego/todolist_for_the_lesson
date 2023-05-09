@@ -78,3 +78,10 @@ export const getTodoListTС = (dispatch: Dispatch) => {
         })
 }
 
+export const createTodolistTС = (title: string) => (dispatch: Dispatch) => {
+    todoListsAPI.createTodolist(title)
+        .then((res) => {
+            dispatch(addTodolistAC(title))
+        })
+}
+
