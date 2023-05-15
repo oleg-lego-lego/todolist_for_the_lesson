@@ -61,7 +61,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
 
     useEffect(() => {
         dispatch(getTasksTС(props.todolistId))
-    }, [])
+    }, [dispatch])
 
     return (
         <div>
@@ -73,7 +73,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
             </h3>
             <AddItemForm callBack={AddItemFormHandler}/>
             <ul>
-                {tasks.map((t) => {
+                {tasks?.map((t) => {
                     return (
                         <Task
                             key={t.id}
@@ -88,17 +88,20 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
             <div>
                 <Button
                     variant={props.filter === 'all' ? "outlined" : "contained"} color="secondary"
-                    onClick={() => props.filteredTask(props.todolistId, 'all')}
+                    onClick={() => {
+                    }}
                 >All</Button>
 
                 <Button
                     variant={props.filter === 'active' ? "outlined" : "contained"} color="success"
-                    onClick={() => props.filteredTask(props.todolistId, 'active')}
+                    onClick={() => {
+                    }}
                 >Active</Button>
 
                 <Button
                     variant={props.filter === 'completed' ? "outlined" : "contained"} color="error"
-                    onClick={() => props.filteredTask(props.todolistId, 'completed')}
+                    onClick={() => {
+                    }}
                 >Completed</Button>
             </div>
         </div>

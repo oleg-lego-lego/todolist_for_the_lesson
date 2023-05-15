@@ -10,17 +10,15 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
     const [title, setTitle] = useState('')
 
     const onDoubleClickHandler = () => {
-        setEdit(true)
-        setTitle(props.title)
+
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
+
     }
 
     const onBlurHandler = () => {
-        setEdit(!edit)
-        props.callBack(title)
+
     }
 
     return (

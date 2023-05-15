@@ -4,12 +4,13 @@ import {Todolist} from "./Todolist";
 import {AddItemForm} from "./components/AddItemForm";
 import ButtonAppBar from "./components/ButtonAppBar";
 import {Container, Grid, Paper} from "@mui/material";
-import {changeTodolistTitleAC, createTodolistTС,
+import {
+    changeTodolistTitleAC, createTodolistTС,
     filteredTaskAC, getTodoListTС,
     removeTodolistAC
 } from "./components/store/todolists-reducer";
 import {
-    addTasksTС, changeTaskStatusTС, changeTaskTitleAC,
+    addTasksTС, changeTaskStatusTС, changeTaskTitleAC, getTasksTС,
     removeTasksTС, TasksStateType,
 } from "./components/store/task-reducer";
 import {useSelector} from "react-redux";
@@ -25,9 +26,8 @@ export type TodolistType = {
 export type FilterType = 'all' | 'active' | 'completed'
 
 function AppWithRedux() {
-    let todolist = useSelector<AppRootStateType, TodolistType[]>((state => state.todolists))
-    let task = useSelector<AppRootStateType, TasksStateType>((state => state.tasks))
-
+    const todolist = useSelector<AppRootStateType, TodolistType[]>((state) => state.todolists)
+    const task = useSelector<AppRootStateType, TasksStateType>((state) => state.tasks)
 
     const dispatch = useAppDispatch()
 
@@ -40,7 +40,7 @@ function AppWithRedux() {
     }, [dispatch])
 
     const filteredTask = React.useCallback((todolistId: string, filter: FilterType) => {
-        dispatch(filteredTaskAC(todolistId, filter))
+
     }, [dispatch])
 
     const changeTaskStatus = React.useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
@@ -48,7 +48,7 @@ function AppWithRedux() {
     }, [dispatch])
 
     const removeTodolist = React.useCallback((todolistId: string) => {
-        dispatch(removeTodolistAC(todolistId))
+
     }, [dispatch])
 
     const addTodolist = React.useCallback((title: string) => {
@@ -56,16 +56,16 @@ function AppWithRedux() {
     }, [dispatch])
 
     const changeTaskTitle = React.useCallback((todolistId: string, taskId: string, title: string) => {
-        dispatch(changeTaskTitleAC(todolistId, taskId, title))
+
     }, [dispatch])
 
     const changeTodolistTitle = React.useCallback((todolistId: string, title: string) => {
-        dispatch(changeTodolistTitleAC(todolistId, title))
+
     }, [dispatch])
 
     useEffect(() => {
         dispatch(getTodoListTС)
-    }, [])
+    }, [dispatch])
 
 
     return (
