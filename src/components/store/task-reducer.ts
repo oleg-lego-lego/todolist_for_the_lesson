@@ -2,7 +2,7 @@ import {AddTodolistACType, GetTodoListsACType, RemoveTodolistACType} from "./tod
 import {Dispatch} from "redux";
 import {TaskStatuses, TaskType, todoListsAPI, UpdateTaskModelType} from "../../api/todolist-api";
 import {v1} from "uuid";
-import {AppRootStateType} from "../../store/store";
+import {AppRootStateType} from "../../app/store";
 
 export type  ActionTaskType =
     RemoveTaskACType
@@ -58,7 +58,7 @@ export const tasksReducer = (state = initialState, action: ActionTaskType): Task
         //     }
         // }
         case "ADD-TODOLIST": {
-            return {...state, [action.todolistId]: []}
+            return {...state, [action.todolist.id]: []}
         }
         case "REMOVE-TODOLIST": {
             const copyState = {...state}

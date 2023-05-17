@@ -1,14 +1,15 @@
 import React, {useEffect} from 'react';
-import {FilterType} from "./App";
 import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import {Task} from "./components/Task";
-import {useAppDispatch} from "./store/store";
+import {useAppDispatch} from "./app/store";
 import {getTasksTС} from "./components/store/task-reducer";
 import {TaskStatuses, TaskType} from "./api/todolist-api";
+import {FilterType} from "./components/store/todolists-reducer";
+
 
 type TodolistPropsType = {
     todolistId: string

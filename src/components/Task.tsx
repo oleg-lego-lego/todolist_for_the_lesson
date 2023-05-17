@@ -4,7 +4,7 @@ import {EditableSpan} from "./EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {TaskStatuses, TaskType} from "../api/todolist-api";
-import '../App.css';
+import '../app/App.css';
 
 export type TaskPropsType = {
     todolistId: string
