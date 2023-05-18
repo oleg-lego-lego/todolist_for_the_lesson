@@ -1,7 +1,6 @@
 import {AddTodolistACType, GetTodoListsACType, RemoveTodolistACType} from "./todolists-reducer";
 import {Dispatch} from "redux";
-import {TaskStatuses, TaskType, todoListsAPI, UpdateTaskModelType} from "../../api/todolist-api";
-import {v1} from "uuid";
+import {ResultCode, TaskStatuses, TaskType, todoListsAPI, UpdateTaskModelType} from "../../api/todolist-api";
 import {AppRootStateType} from "../../app/store";
 import {setAppErrorAC, SetAppErrorACType, setAppStatusAC, SetAppStatusACType} from "../../app/app-reducer";
 
@@ -122,7 +121,7 @@ export const addTasksTС = (todolistId: string, title: string) => (dispatch: Dis
     todoListsAPI.createTask(todolistId, title)
         .then((res) => {
             const task: TaskType = res.data.data.item
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResultCode.OK) {
                 dispatch(addTaskAC(task))
             } else {
                 if (res.data.messages.length) {
