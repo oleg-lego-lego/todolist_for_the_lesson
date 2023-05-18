@@ -3,13 +3,15 @@ import {tasksReducer} from "../components/store/task-reducer";
 import {todolistsReducer} from "../components/store/todolists-reducer";
 import {useDispatch} from "react-redux";
 import thunk, {ThunkDispatch} from "redux-thunk";
+import {appReducer} from "./app-reducer";
 
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
 const rootReducer = combineReducers({
     tasks: tasksReducer,
-    todolists: todolistsReducer
+    todolists: todolistsReducer,
+    app: appReducer
 })
 
 export type AppDispatchType = ThunkDispatch<AppRootStateType, any, AnyAction>
