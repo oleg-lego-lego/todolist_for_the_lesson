@@ -12,6 +12,7 @@ import TodoListsList from "../TodoList/TodoListsList";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "./store";
 import {RequestStatusType} from "./app-reducer";
+import {ErrorSnackbar} from "../components/ErrorSnackbar /ErrorSnackbar";
 
 function App() {
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
@@ -33,6 +34,7 @@ function App() {
             <Container fixed>
                 <TodoListsList/>
             </Container>
+            <ErrorSnackbar/>
         </div>
     )
 }
