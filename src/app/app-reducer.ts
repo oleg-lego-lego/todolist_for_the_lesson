@@ -4,7 +4,7 @@ const initialState = {
     error: null as null | string
 }
 
-type ErrorType = typeof initialState.error
+export type ErrorType = typeof initialState.error
 
 export type InitialStateType = typeof initialState
 
