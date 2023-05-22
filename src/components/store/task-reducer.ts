@@ -1,4 +1,4 @@
-import {AddTodolistACType, GetTodoListsACType, RemoveTodolistACType} from "./todolists-reducer";
+import {AddTodolistACType, GetTodoListsACType, RemoveTodolistACType, setEntityStatusAC} from "./todolists-reducer";
 import {Dispatch} from "redux";
 import {
     ResultCode,
@@ -138,6 +138,10 @@ export const addTasksTС = (todolistId: string, title: string) => (dispatch: Dis
             }
             dispatch(setAppStatusAC('idle'))
         })
+        .catch(e => {
+            // dispatch(setAppStatusAC('failed'))
+            // dispatch(setAppErrorAC(e.message))
+        })
 }
 
 export const updateTaskTС = (todolistId: string, taskId: string, domainModel: UpdateDomainTaskModelType) =>
@@ -156,8 +160,20 @@ export const updateTaskTС = (todolistId: string, taskId: string, domainModel: U
             }
             todoListsAPI.updateTask(todolistId, taskId, model)
                 .then((res) => {
-                    dispatch(updateTaskAC(todolistId, taskId, domainModel))
-                    dispatch(setAppStatusAC('succeeded'))
+                    if (res.data.resultCode === ResultCode.OK) {
+                        dispatch(updateTaskAC(todolistId, taskId, domainModel))
+                        dispatch(setAppStatusAC('succeeded'))
+                    } else {
+                        if (res.data.messages.length) {
+                            dispatch(setAppErrorAC(res.data.messages[0]))
+                        } else {
+                            dispatch(setAppErrorAC('error'))
+                        }
+                    }
+                })
+                .catch(e => {
+                    dispatch(setAppStatusAC('failed'))
+                    dispatch(setAppErrorAC(e.message))
                 })
         }
     }
