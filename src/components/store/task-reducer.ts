@@ -15,6 +15,7 @@ import {
     setAppStatusAC,
     SetAppStatusACType
 } from "../../app/app-reducer";
+import {appServerAppError, appServerNetworkError} from "../../utils/error-util";
 
 export type  ActionTaskType =
     RemoveTaskACType
@@ -130,17 +131,12 @@ export const addTasksTС = (todolistId: string, title: string) => (dispatch: Dis
             if (res.data.resultCode === ResultCode.OK) {
                 dispatch(addTaskAC(task))
             } else {
-                if (res.data.messages.length) {
-                    dispatch(setAppErrorAC(res.data.messages[0]))
-                } else {
-                    dispatch(setAppErrorAC('error'))
-                }
+                appServerAppError<{ item: TaskType }>(dispatch, res.data)
             }
             dispatch(setAppStatusAC('idle'))
         })
         .catch(e => {
-            // dispatch(setAppStatusAC('failed'))
-            // dispatch(setAppErrorAC(e.message))
+            appServerNetworkError(dispatch, e.message)
         })
 }
 
@@ -172,8 +168,7 @@ export const updateTaskTС = (todolistId: string, taskId: string, domainModel: U
                     }
                 })
                 .catch(e => {
-                    dispatch(setAppStatusAC('failed'))
-                    dispatch(setAppErrorAC(e.message))
+                    appServerNetworkError(dispatch, e.message)
                 })
         }
     }

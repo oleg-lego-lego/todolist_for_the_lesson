@@ -1,4 +1,4 @@
-import {todoListsAPI, TodolistType} from "../../api/todolist-api";
+import {ResultCode, TaskType, todoListsAPI, TodolistType} from "../../api/todolist-api";
 import {Dispatch} from "redux";
 import {
     RequestStatusType,
@@ -7,6 +7,7 @@ import {
     setAppStatusAC,
     SetAppStatusACType
 } from "../../app/app-reducer";
+import {appServerAppError} from "../../utils/error-util";
 
 export type  ActionTodolistType =
     RemoveTodolistACType
@@ -97,8 +98,12 @@ export const createTodolistTС = (title: string) => (dispatch: Dispatch<ActionTo
     dispatch(setAppStatusAC('loading'))
     todoListsAPI.createTodolist(title)
         .then((res) => {
-            dispatch(addTodolistAC(res.data.data.item))
-            dispatch(setAppStatusAC('succeeded'))
+            if (res.data.resultCode === ResultCode.OK) {
+                dispatch(addTodolistAC(res.data.data.item))
+                dispatch(setAppStatusAC('succeeded'))
+            } else {
+                appServerAppError<{ item: TodolistType }>(dispatch, res.data)
+            }
         })
 }
 
