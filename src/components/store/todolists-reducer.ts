@@ -27,6 +27,9 @@ export const todolistsReducer = (state: TodolistDomainType[] = initialState, act
         case 'REMOVE-TODOLIST': {
             return state.filter(f => f.id !== action.todolistId)
         }
+        case "SET-ENTITY-STATUS": {
+            return state.map(el => el.id === action.todolistId ? {...el, entityStatus: action.entityStatus} : el)
+        }
         case "ADD-TODOLIST": {
             return [
                 {...action.todolist, filter: 'all' as FilterType, entityStatus: 'idle' as RequestStatusType}
@@ -70,8 +73,8 @@ export const getTodoListsAC = (todoList: TodolistType[]) => {
 }
 
 export type SetEntityStatusACType = ReturnType<typeof setEntityStatusAC>
-export const setEntityStatusAC = (todolistId: string ,entityStatus: RequestStatusType) => {
-    return {type: 'SET-ENTITY-STATUS', entityStatus} as const
+export const setEntityStatusAC = (todolistId: string, entityStatus: RequestStatusType) => {
+    return {type: 'SET-ENTITY-STATUS', todolistId, entityStatus} as const
 }
 
 export const getTodoListTС = (dispatch: Dispatch<ActionTodolistType>) => {
