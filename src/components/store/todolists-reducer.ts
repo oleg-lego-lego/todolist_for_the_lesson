@@ -9,6 +9,7 @@ export type  ActionTodolistType =
     | filteredTaskACType
     | GetTodoListsACType
     | SetAppStatusACType
+    | SetEntityStatusACType
 
 
 const initialState: TodolistDomainType[] = []
@@ -68,6 +69,11 @@ export const getTodoListsAC = (todoList: TodolistType[]) => {
     return {type: 'GET-TODO-LIST', todoList} as const
 }
 
+export type SetEntityStatusACType = ReturnType<typeof setEntityStatusAC>
+export const setEntityStatusAC = (todolistId: string ,entityStatus: RequestStatusType) => {
+    return {type: 'SET-ENTITY-STATUS', entityStatus} as const
+}
+
 export const getTodoListTС = (dispatch: Dispatch<ActionTodolistType>) => {
     dispatch(setAppStatusAC('loading'))
     todoListsAPI.getTodoLists()
@@ -89,10 +95,12 @@ export const createTodolistTС = (title: string) => (dispatch: Dispatch<ActionTo
 export const removeTodolistTC = (todolistId: string) => {
     return (dispatch: Dispatch<ActionTodolistType>) => {
         dispatch(setAppStatusAC('loading'))
+        dispatch((setEntityStatusAC(todolistId, 'loading')))
         todoListsAPI.deleteTodolist(todolistId)
             .then((res) => {
                 dispatch(removeTodolistAC(todolistId))
                 dispatch(setAppStatusAC('succeeded'))
+                //dispatch((setEntityStatusAC(todolistId, 'idle')))
             })
     }
 }
