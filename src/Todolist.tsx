@@ -9,6 +9,7 @@ import {useAppDispatch} from "./app/store";
 import {getTasksTС} from "./components/store/task-reducer";
 import {TaskStatuses, TaskType} from "./api/todolist-api";
 import {FilterType} from "./components/store/todolists-reducer";
+import {RequestStatusType} from "./app/app-reducer";
 
 
 type TodolistPropsType = {
@@ -20,6 +21,7 @@ type TodolistPropsType = {
     addTask: (todolistId: string, newTitle: string) => void
     changeTaskStatus: (todolistId: string, taskId: string, status: TaskStatuses) => void
     filter: FilterType
+    entityStatus: RequestStatusType
     removeTodolist: (todolistId: string) => void
     changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
     changeTodolistTitle: (todolistId: string, title: string) => void

@@ -83,6 +83,7 @@ function TodoListsList() {
                                     addTask={addTask}
                                     changeTaskStatus={changeTaskStatus}
                                     filter={t.filter}
+                                    entityStatus={t.entityStatus}
                                     removeTodolist={removeTodolist}
                                     changeTaskTitle={changeTaskTitle}
                                     changeTodolistTitle={changeTodolistTitle}
