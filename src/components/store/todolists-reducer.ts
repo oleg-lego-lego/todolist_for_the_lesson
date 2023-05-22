@@ -1,6 +1,12 @@
 import {todoListsAPI, TodolistType} from "../../api/todolist-api";
 import {Dispatch} from "redux";
-import {RequestStatusType, setAppStatusAC, SetAppStatusACType} from "../../app/app-reducer";
+import {
+    RequestStatusType,
+    setAppErrorAC,
+    SetAppErrorACType,
+    setAppStatusAC,
+    SetAppStatusACType
+} from "../../app/app-reducer";
 
 export type  ActionTodolistType =
     RemoveTodolistACType
@@ -10,6 +16,7 @@ export type  ActionTodolistType =
     | GetTodoListsACType
     | SetAppStatusACType
     | SetEntityStatusACType
+    | SetAppErrorACType
 
 
 const initialState: TodolistDomainType[] = []
@@ -98,15 +105,21 @@ export const createTodolistTС = (title: string) => (dispatch: Dispatch<ActionTo
 export const removeTodolistTC = (todolistId: string) => {
     return (dispatch: Dispatch<ActionTodolistType>) => {
         dispatch(setAppStatusAC('loading'))
-        dispatch((setEntityStatusAC(todolistId, 'loading')))
+        dispatch(setEntityStatusAC(todolistId, 'loading'))
         todoListsAPI.deleteTodolist(todolistId)
             .then((res) => {
                 dispatch(removeTodolistAC(todolistId))
                 dispatch(setAppStatusAC('succeeded'))
-                //dispatch((setEntityStatusAC(todolistId, 'idle')))
             })
+            .catch(e => {
+                dispatch(setAppStatusAC('failed'))
+                dispatch(setEntityStatusAC(todolistId, 'failed'))
+                dispatch(setAppErrorAC(e.message))
+            })
+
     }
 }
+
 
 export const changeTodolistTitleTC = (id: string, title: string) => {
     return (dispatch: Dispatch<ActionTodolistType>) => {
