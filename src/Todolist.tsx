@@ -70,7 +70,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
         <div>
             <h3>
                 <EditableSpan title={props.title} callBack={editableSpanTodolistTitle}/>
-                <IconButton onClick={removeTodolistHandler}>
+                <IconButton disabled={props.entityStatus === 'loading'} onClick={removeTodolistHandler}>
                     <DeleteIcon/>
                 </IconButton>
             </h3>
