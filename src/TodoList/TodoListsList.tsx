@@ -2,10 +2,8 @@ import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "../app/store";
 import {
     addTasksTС,
-    changeTaskStatusTС,
-    changeTaskTitleAC,
     removeTasksTС,
-    TasksStateType
+    TasksStateType, updateTaskTС
 } from "../components/store/task-reducer";
 import React, {useEffect} from "react";
 import {
@@ -39,7 +37,7 @@ function TodoListsList() {
     }, [dispatch])
 
     const changeTaskStatus = React.useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
-        dispatch(changeTaskStatusTС(todolistId, taskId, status))
+        dispatch(updateTaskTС(todolistId, taskId, {status}))
     }, [dispatch])
 
     const removeTodolist = React.useCallback((todolistId: string) => {
@@ -51,7 +49,7 @@ function TodoListsList() {
     }, [dispatch])
 
     const changeTaskTitle = React.useCallback((todolistId: string, taskId: string, title: string) => {
-        dispatch(changeTaskTitleAC(todolistId, taskId, title))
+        dispatch(updateTaskTС(todolistId, taskId, {title}))
     }, [dispatch])
 
     const changeTodolistTitle = React.useCallback((todolistId: string, title: string) => {
