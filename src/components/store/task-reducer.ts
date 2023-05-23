@@ -16,6 +16,7 @@ import {
     SetAppStatusACType
 } from "../../app/app-reducer";
 import {appServerAppError, appServerNetworkError} from "../../utils/error-util";
+import {AxiosError} from "axios";
 
 export type  ActionTaskType =
     RemoveTaskACType
@@ -135,7 +136,7 @@ export const addTasksTС = (todolistId: string, title: string) => (dispatch: Dis
             }
             dispatch(setAppStatusAC('idle'))
         })
-        .catch(e => {
+        .catch((e: AxiosError) => {
             appServerNetworkError(dispatch, e.message)
         })
 }

@@ -8,6 +8,7 @@ import {
     SetAppStatusACType
 } from "../../app/app-reducer";
 import {appServerAppError} from "../../utils/error-util";
+import {AxiosError} from "axios";
 
 export type  ActionTodolistType =
     RemoveTodolistACType
@@ -116,7 +117,7 @@ export const removeTodolistTC = (todolistId: string) => {
                 dispatch(removeTodolistAC(todolistId))
                 dispatch(setAppStatusAC('succeeded'))
             })
-            .catch(e => {
+            .catch((e: AxiosError) => {
                 dispatch(setAppStatusAC('failed'))
                 dispatch(setEntityStatusAC(todolistId, 'failed'))
                 dispatch(setAppErrorAC(e.message))
