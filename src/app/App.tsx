@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Container} from "@mui/material";
 import AppBar from "@mui/material/AppBar";
@@ -10,14 +10,20 @@ import {Menu} from '@mui/icons-material';
 import LinearProgress from "@mui/material/LinearProgress";
 import TodoListsList from "../TodoList/TodoListsList";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "./store";
+import {AppRootStateType, useAppDispatch} from "./store";
 import {RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar /ErrorSnackbar";
 import {Login} from "../Login/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
+import {meTC} from "../Login/auth-reducer";
 
 function App() {
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
+    const dispatch = useAppDispatch()
+
+    useEffect(() =>{
+        dispatch(meTC())
+    }, [])
 
     return (
         <div className="App">

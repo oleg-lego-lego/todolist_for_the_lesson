@@ -20,6 +20,22 @@ export const authReducer = (state: authReducerStateType = initialState, action: 
 export const setIsLoggedInAC = (value: boolean) =>
     ({type: 'login/SET-IS-LOGGED-IN', value} as const)
 
+export const meTC = () => async (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatusAC('loading'))
+    try {
+        const res = await authAPI.me()
+        if (res.data.resultCode === ResultCode.OK) {
+            dispatch(setIsLoggedInAC(true))
+            dispatch(setAppStatusAC('succeeded'))
+        } else {
+            appServerAppError(dispatch, res.data)
+        }
+    } catch (e) {
+        appServerNetworkError(dispatch, (e as any).message)
+    }
+}
+
+
 
 export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
