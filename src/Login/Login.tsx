@@ -8,6 +8,8 @@ import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {useFormik} from "formik";
+import {loginTC} from "./auth-reducer";
+import {useAppDispatch} from "../app/store";
 
 type errorsType = {
     email?: string,
@@ -16,6 +18,8 @@ type errorsType = {
 }
 
 export const Login = () => {
+    const dispatch = useAppDispatch()
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -36,10 +40,10 @@ export const Login = () => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
-
             return errors;
         },
         onSubmit: values => {
+            dispatch(loginTC(values))
             formik.resetForm()
         },
     })

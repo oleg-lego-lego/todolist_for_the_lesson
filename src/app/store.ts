@@ -4,6 +4,7 @@ import {todolistsReducer} from "../components/store/todolists-reducer";
 import {useDispatch} from "react-redux";
 import thunk, {ThunkDispatch} from "redux-thunk";
 import {appReducer} from "./app-reducer";
+import {authReducer} from "../Login/auth-reducer";
 
 
 // объединяя reducer-ы с помощью combineReducers,
@@ -11,7 +12,8 @@ import {appReducer} from "./app-reducer";
 const rootReducer = combineReducers({
     tasks: tasksReducer,
     todolists: todolistsReducer,
-    app: appReducer
+    app: appReducer,
+    auth: authReducer
 })
 
 export type AppDispatchType = ThunkDispatch<AppRootStateType, any, AnyAction>
