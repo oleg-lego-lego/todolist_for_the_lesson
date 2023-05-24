@@ -1,4 +1,10 @@
-import {SetAppErrorACType, setAppStatusAC, SetAppStatusACType} from "../app/app-reducer";
+import {
+    SetAppErrorACType,
+    setAppStatusAC,
+    SetAppStatusACType,
+    setIsInitializedAC,
+    setIsInitializedACType
+} from "../app/app-reducer";
 import {Dispatch} from "redux";
 import {authAPI, LoginParamsType, ResultCode} from "../api/todolist-api";
 import {appServerAppError, appServerNetworkError} from "../utils/error-util";
@@ -17,8 +23,9 @@ export const authReducer = (state: authReducerStateType = initialState, action: 
     }
 }
 
-export const setIsLoggedInAC = (value: boolean) =>
-    ({type: 'login/SET-IS-LOGGED-IN', value} as const)
+export const setIsLoggedInAC = (value: boolean) => {
+    return {type: 'login/SET-IS-LOGGED-IN', value} as const
+}
 
 export const meTC = () => async (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
@@ -32,9 +39,10 @@ export const meTC = () => async (dispatch: Dispatch<ActionsType>) => {
         }
     } catch (e) {
         appServerNetworkError(dispatch, (e as any).message)
+    } finally {
+        dispatch(setIsInitializedAC(true))
     }
 }
-
 
 
 export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<ActionsType>) => {
@@ -53,4 +61,8 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<Acti
 }
 
 // types
-type ActionsType = ReturnType<typeof setIsLoggedInAC> | SetAppStatusACType | SetAppErrorACType
+type ActionsType =
+    ReturnType<typeof setIsLoggedInAC>
+    | SetAppStatusACType
+    | SetAppErrorACType
+    | setIsInitializedACType
