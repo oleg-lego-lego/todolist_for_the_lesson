@@ -6,9 +6,9 @@ import {appServerAppError, appServerNetworkError} from "../utils/error-util";
 const initialState = {
     isLoggedIn: false
 }
-type InitialStateType = typeof initialState
+export type authReducerStateType = typeof initialState
 
-export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const authReducer = (state: authReducerStateType = initialState, action: ActionsType): authReducerStateType => {
     switch (action.type) {
         case 'login/SET-IS-LOGGED-IN':
             return {...state, isLoggedIn: action.value}

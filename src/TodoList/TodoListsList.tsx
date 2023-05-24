@@ -16,11 +16,14 @@ import {TaskStatuses} from "../api/todolist-api";
 import {Grid, Paper} from "@mui/material";
 import {Todolist} from "../Todolist";
 import {AddItemForm} from "../components/AddItemForm";
+import {Navigate} from "react-router-dom";
+import {authReducerStateType} from "../Login/auth-reducer";
 
 
 function TodoListsList() {
     let todolist = useSelector<AppRootStateType, TodolistDomainType[]>((state => state.todolists))
     let task = useSelector<AppRootStateType, TasksStateType>((state => state.tasks))
+    const isLoggedIn = useSelector<AppRootStateType, authReducerStateType>((state) => state.auth)
 
     const dispatch = useAppDispatch()
 
@@ -57,9 +60,14 @@ function TodoListsList() {
     }, [dispatch])
 
     useEffect(() => {
+        if (!isLoggedIn.isLoggedIn) return
         dispatch(getTodoListTС)
     }, [])
 
+
+    if (!isLoggedIn.isLoggedIn) {
+        return <Navigate to={'/login'}/>
+    }
 
     return (
         <>
