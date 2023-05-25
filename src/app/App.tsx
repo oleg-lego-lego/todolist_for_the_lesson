@@ -15,23 +15,28 @@ import {APPStateType, RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar /ErrorSnackbar";
 import {Login} from "../Login/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
-import {authReducerStateType, meTC} from "../Login/auth-reducer";
+import {authReducerStateType, logOutTC, meTC} from "../Login/auth-reducer";
 
 function App() {
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
-    const app = useSelector<AppRootStateType, APPStateType>((state) => state.app)
+    const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(meTC())
     }, [])
 
-    if (!app.isInitialized) {
+    if (!isInitialized) {
         return (
             <div
                 style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
                 <CircularProgress/>
             </div>)
+    }
+    
+    const logOut = () => {
+      dispatch(logOutTC())
     }
 
 
@@ -45,7 +50,7 @@ function App() {
                     <Typography variant="h6">
                         News
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    {isLoggedIn && <Button color="inherit" onClick={logOut}>Log out</Button>}
                 </Toolbar>
             </AppBar>
             {status === 'loading' && <LinearProgress color={'secondary'}/>}

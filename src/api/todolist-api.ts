@@ -12,6 +12,9 @@ export const authAPI = {
     login(data: LoginParamsType) {
         return instance.post<ResponseType<{ id: number }>, AxiosResponse<ResponseType<{ id: number }>>, LoginParamsType>('auth/login', data)
     },
+    logOut() {
+        return instance.delete<ResponseType>('auth/login')
+    },
     me(){
         return instance.get<ResponseType<UserType>>('auth/me');
     }
