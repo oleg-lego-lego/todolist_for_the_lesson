@@ -18,6 +18,7 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
         if (error) {
             setError(null)
         }
+
         if (e.key === 'Enter') {
             addTaskHandler()
         }
@@ -25,11 +26,13 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
 
     const addTaskHandler = () => {
         const newTitle = title.trim()
+
         if (newTitle !== '') {
             props.callBack(newTitle)
             setTitle('')
         } else {
             setError('Title is required')
+            setTimeout(() => setError(null), 4000)
         }
     }
 
@@ -45,6 +48,7 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
                 onKeyDown={onKeyDownAddTAsk}
                 error={!!error}
             />
+
             <Button
                 style={{maxWidth: '38px', maxHeight: '38px', minWidth: '38px', minHeight: '38px'}}
                 variant="contained"
