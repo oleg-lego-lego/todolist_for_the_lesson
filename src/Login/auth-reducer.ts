@@ -3,17 +3,18 @@ import {
     setAppStatusAC,
     SetAppStatusACType,
     setIsInitializedAC,
-    setIsInitializedACType
+    SetIsInitializedACType,
 } from "../app/app-reducer";
 import {Dispatch} from "redux";
 import {authAPI, LoginParamsType, ResultCode} from "../api/todolist-api";
 import {appServerNetworkError} from "../utils/error-util";
-import {clearTodoListsDataAC, clearTodoListsDataACType} from "../components/store/todolists-reducer";
+import {clearTodoListsDataAC, ClearTodoListsDataACType} from "../components/store/todolists-reducer";
 import {AxiosError} from "axios";
 
 const initialState = {
     isLoggedIn: false,
 }
+
 export type authReducerStateType = typeof initialState
 
 export const authReducer = (state = initialState, action: AuthActionsType): authReducerStateType => {
@@ -53,7 +54,6 @@ export const meTC = () => async (dispatch: Dispatch<AuthActionsType>) => {
 }
 
 
-
 export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<AuthActionsType>) => {
     dispatch(setAppStatusAC('loading'))
 
@@ -70,7 +70,6 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<Auth
 }
 
 
-
 export const logOutTC = () => async (dispatch: Dispatch<AuthActionsType>) => {
     dispatch(setAppStatusAC('loading'))
 
@@ -78,7 +77,7 @@ export const logOutTC = () => async (dispatch: Dispatch<AuthActionsType>) => {
         .then((res) => {
             if (res.data.resultCode === ResultCode.OK) {
                 dispatch(setIsLoggedInAC(false))
-                setTimeout(() => dispatch(setAppStatusAC('succeeded')) ,2000)
+                setTimeout(() => dispatch(setAppStatusAC('succeeded')), 2000)
                 dispatch(clearTodoListsDataAC())
             }
         })
@@ -92,5 +91,5 @@ export type AuthActionsType =
     ReturnType<typeof setIsLoggedInAC>
     | SetAppStatusACType
     | SetAppErrorACType
-    | setIsInitializedACType
-    | clearTodoListsDataACType
+    | SetIsInitializedACType
+    | ClearTodoListsDataACType
