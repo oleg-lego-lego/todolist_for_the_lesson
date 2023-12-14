@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 
 type EditableSpanPropsType = {
     title: string
@@ -23,10 +23,21 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
         props.callBack(title)
     }
 
+    const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            onBlurHandler()
+        }
+    }
+
     return (
         <>
             {edit
-                ? <input value={title} onChange={onChangeHandler} onBlur={onBlurHandler} autoFocus/>
+                ? <input id={`change ${title}`}
+                         value={title}
+                         onChange={onChangeHandler}
+                         onBlur={onBlurHandler} autoFocus
+                         onKeyDown={onKeyDownHandler}
+                />
                 : <span onDoubleClick={onDoubleClickHandler}>{props.title}</span>
             }
         </>

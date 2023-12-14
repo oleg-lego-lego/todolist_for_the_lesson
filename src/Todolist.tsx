@@ -1,21 +1,22 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import {Task} from "./components/Task";
-import {useAppDispatch} from "./app/store";
-import {getTasksTС} from "./components/store/task-reducer";
-import {TaskStatuses, TaskType} from "./api/todolist-api";
+import {TaskStatuses} from "./api/todolist-api";
 import {FilterType} from "./components/store/todolists-reducer";
 import {RequestStatusType} from "./app/app-reducer";
+import {TaskDescription} from "./components/Task/TaskDescription";
+import {TaskDomainType} from "./components/store/task-reducer";
 
+type ColorType = 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
 
 type TodolistPropsType = {
     todolistId: string
     title: string
-    tasks: TaskType[]
+    tasks: TaskDomainType[]
     removeTask: (todolistId: string, taskId: string) => void
     filteredTask: (todolistId: string, filter: FilterType) => void
     addTask: (todolistId: string, newTitle: string) => void
@@ -27,32 +28,31 @@ type TodolistPropsType = {
     changeTodolistTitle: (todolistId: string, title: string) => void
 }
 
-export const Todolist = React.memo((props: TodolistPropsType) => {
-    const dispatch = useAppDispatch()
 
-    const changeTaskStatus = React.useCallback((taskId: string, status: TaskStatuses) => {
+export const Todolist = (props: TodolistPropsType) => {
+    const changeTaskStatus = (taskId: string, status: TaskStatuses) => {
         props.changeTaskStatus(props.todolistId, taskId, status)
-    }, [props])
+    }
 
-    const changeTaskTitle = React.useCallback((taskId: string, title: string) => {
+    const changeTaskTitle = (taskId: string, title: string) => {
         props.changeTaskTitle(props.todolistId, taskId, title)
-    }, [props])
+    }
 
-    const removeTask = React.useCallback((taskId: string) => {
+    const removeTask = (taskId: string) => {
         props.removeTask(props.todolistId, taskId)
-    }, [props])
+    }
 
     const removeTodolistHandler = () => {
         props.removeTodolist(props.todolistId)
     }
 
-    const AddItemFormHandler = React.useCallback((title: string) => {
+    const AddItemFormHandler = (title: string) => {
         props.addTask(props.todolistId, title)
-    }, [props])
+    }
 
-    const editableSpanTodolistTitle = React.useCallback((title: string) => {
+    const editableSpanTodolistTitle = (title: string) => {
         props.changeTodolistTitle(props.todolistId, title)
-    }, [props])
+    }
 
     let tasks = props.tasks
     if (props.filter === 'active') {
@@ -62,48 +62,59 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
         tasks = tasks.filter(f => f.status === TaskStatuses.Completed)
     }
 
-    useEffect(() => {
-        dispatch(getTasksTС(props.todolistId))
-    }, [])
+    const taskDescription = (!props.tasks.length)
+        ? 'Todolist is empty. Create your first task!'
+        : (!tasks.length)
+            ? 'The list of tasks of the selected type is empty!'
+            : ''
+
+    const renderFilterButton = (filterValue: FilterType, color: ColorType) => {
+        return (
+            <Button
+                style={{minWidth: '35px'}}
+                variant={props.filter === filterValue ? "outlined" : "text"}
+                color={color}
+                onClick={() => props.filteredTask(props.todolistId, filterValue)}
+            >
+                {filterValue}
+            </Button>
+        )
+    }
 
     return (
-        <div>
-            <h3>
+        <>
+            <h3 className={'title__todolist'}>
                 <EditableSpan title={props.title} callBack={editableSpanTodolistTitle}/>
                 <IconButton disabled={props.entityStatus === 'loading'} onClick={removeTodolistHandler}>
                     <DeleteIcon/>
                 </IconButton>
             </h3>
+
             <AddItemForm callBack={AddItemFormHandler}/>
+
             <ul>
-                {tasks.map((t) => {
-                    return (
-                        <Task
-                            key={t.id}
-                            todolistId={props.todolistId} tasks={t}
-                            changeTaskTitle={changeTaskTitle}
-                            changeTaskStatus={changeTaskStatus}
-                            removeTask={removeTask}
-                        />
-                    )
-                })}
+                {tasks.length
+                    ? tasks.map((t) => {
+                        return (
+                            <Task
+                                key={t.id}
+                                todolistId={props.todolistId}
+                                tasks={t}
+                                changeTaskTitle={changeTaskTitle}
+                                changeTaskStatus={changeTaskStatus}
+                                removeTask={removeTask}
+                            />
+                        )
+                    })
+                    : <TaskDescription title={taskDescription}/>
+                }
             </ul>
-            <div>
-                <Button
-                    variant={props.filter === 'all' ? "outlined" : "contained"} color="secondary"
-                    onClick={() => props.filteredTask(props.todolistId, 'all')}
-                >All</Button>
 
-                <Button
-                    variant={props.filter === 'active' ? "outlined" : "contained"} color="success"
-                    onClick={() => props.filteredTask(props.todolistId, 'active')}
-                >Active</Button>
-
-                <Button
-                    variant={props.filter === 'completed' ? "outlined" : "contained"} color="error"
-                    onClick={() => props.filteredTask(props.todolistId, 'completed')}
-                >Completed</Button>
+            <div className={'button__filter'}>
+                {renderFilterButton('all', 'inherit')}
+                {renderFilterButton('active', 'primary')}
+                {renderFilterButton('completed', 'secondary')}
             </div>
-        </div>
+        </>
     );
-});
+};

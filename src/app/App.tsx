@@ -10,7 +10,8 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import {meTC} from "../Login/auth-reducer";
 import {ButtonAppBar} from "../components/ButtonAppBar";
 
-function App() {
+
+function App() { 
     const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
     const dispatch = useAppDispatch()
 
@@ -25,7 +26,6 @@ function App() {
             </div>
         )
     }
-
 
     return (
         <>
