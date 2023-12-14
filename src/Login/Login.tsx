@@ -22,7 +22,7 @@ type errorsType = {
 export const Login = () => {
     const dispatch = useAppDispatch()
 
-    const isLoggedIn = useSelector<AppRootStateType, authReducerStateType>((state) => state.auth)
+    const isLoggedIn = useSelector<AppRootStateType, authReducerStateType>(state => state.auth)
 
     const formik = useFormik({
         initialValues: {
@@ -30,6 +30,7 @@ export const Login = () => {
             password: '',
             rememberMe: false,
         },
+
         validate: (values) => {
             const errors: errorsType = {};
 
@@ -44,8 +45,10 @@ export const Login = () => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
+
             return errors;
         },
+
         onSubmit: values => {
             dispatch(loginTC(values))
             formik.resetForm()
@@ -61,32 +64,31 @@ export const Login = () => {
         <Grid item justifyContent={'center'}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
-                    <FormLabel>
-                        <p>To log in get registered
-                            <a href={'https://social-network.samuraijs.com/'}
-                               target={'_blank'}> here
-                            </a>
-                        </p>
-                        <p>or use common test account credentials:</p>
+                    <FormLabel style={{width: '300px', padding: '20px 0 0'}}>
                         <p>Email: free@samuraijs.com</p>
                         <p>Password: free</p>
                     </FormLabel>
+
                     <FormGroup>
                         <TextField
                             label="Email"
                             margin="normal"
                             {...formik.getFieldProps('email')}
                         />
+
                         {formik.touched.email && formik.errors.email &&
                             <div style={{color: 'red'}}>{formik.errors.email}</div>}
+
                         <TextField
                             type="password"
                             label="Password"
                             margin="normal"
                             {...formik.getFieldProps('password')}
                         />
+
                         {formik.touched.password && formik.errors.password &&
                             <div style={{color: 'red'}}>{formik.errors.password}</div>}
+
                         <FormControlLabel
                             label={'Remember me'}
                             control={
@@ -96,9 +98,11 @@ export const Login = () => {
                                 />
                             }
                         />
+
                         <Button type={'submit'} variant={'contained'} color={'primary'}>
                             Login
                         </Button>
+
                     </FormGroup>
                 </FormControl>
             </form>
