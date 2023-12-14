@@ -1,4 +1,5 @@
 import {
+    RequestStatusType,
     SetAppErrorACType,
     setAppStatusAC,
     SetAppStatusACType,
@@ -13,6 +14,7 @@ import {AxiosError} from "axios";
 
 const initialState = {
     isLoggedIn: false,
+    entityLogStatus: 'idle' as RequestStatusType,
 }
 
 export type authReducerStateType = typeof initialState
@@ -24,6 +26,11 @@ export const authReducer = (state = initialState, action: AuthActionsType): auth
                 ...state, isLoggedIn: action.value
             }
 
+        case "SET-LOG-ENTITY-STATUS":
+            return {
+                ...state, entityLogStatus: action.entityLogStatus
+            }
+
         default:
             return state
     }
@@ -31,6 +38,11 @@ export const authReducer = (state = initialState, action: AuthActionsType): auth
 
 export const setIsLoggedInAC = (value: boolean) => {
     return {type: 'login/SET-IS-LOGGED-IN', value} as const
+}
+
+export type SetEntityLogStatusACType = ReturnType<typeof setEntityLogStatusAC>
+export const setEntityLogStatusAC = (entityLogStatus: RequestStatusType) => {
+    return {type: 'SET-LOG-ENTITY-STATUS', entityLogStatus} as const
 }
 
 
@@ -72,6 +84,7 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<Auth
 
 export const logOutTC = () => async (dispatch: Dispatch<AuthActionsType>) => {
     dispatch(setAppStatusAC('loading'))
+    dispatch(setEntityLogStatusAC('loading'))
 
     await authAPI.logOut()
         .then((res) => {
@@ -84,6 +97,9 @@ export const logOutTC = () => async (dispatch: Dispatch<AuthActionsType>) => {
         .catch((e: AxiosError) => {
             appServerNetworkError(dispatch, e.message)
         })
+        .finally(() => {
+            setTimeout(() => dispatch(setEntityLogStatusAC('idle')), 4000)
+        })
 }
 
 
@@ -93,3 +109,4 @@ export type AuthActionsType =
     | SetAppErrorACType
     | SetIsInitializedACType
     | ClearTodoListsDataACType
+    | SetEntityLogStatusACType
