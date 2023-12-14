@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import {v1} from "uuid";
 
 type AddItemFormPropsType = {
     callBack: (title: string) => void
@@ -36,10 +37,12 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
         }
     }
 
+    const textFieldTitleId = v1()
+
     return (
         <div>
             <TextField
-                id="outlined-basic"
+                id={textFieldTitleId}
                 label={error ? 'Title is required' : 'title'}
                 variant="outlined"
                 size={'small'}
