@@ -15,7 +15,7 @@ export const authAPI = {
     logOut() {
         return instance.delete<ResponseType>('auth/login')
     },
-    me(){
+    me() {
         return instance.get<ResponseType<UserType>>('auth/me');
     }
 }
@@ -47,20 +47,19 @@ export const todoListsAPI = {
     }
 }
 
-// types
 export type TodolistType = {
     id: string
     title: string
     addedDate: string
     order: number
 }
+
 export type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
     fieldsErrors: Array<string>
     data: D
 }
-
 
 export enum TaskStatuses {
     New = 0,
@@ -95,6 +94,7 @@ export type TaskType = {
     order: number
     addedDate: string
 }
+
 export type UpdateTaskModelType = {
     title: string
     description: string
@@ -103,6 +103,7 @@ export type UpdateTaskModelType = {
     startDate: string
     deadline: string
 }
+
 export type GetTasksResponse = {
     error: string | null
     totalCount: number
