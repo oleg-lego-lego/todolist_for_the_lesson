@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "../app/store";
-import {addTasksThunk, removeTasksThunk, TasksStateType, updateTaskThunk} from "../components/store/task-reducer";
+import {AppRootStateType, useAppDispatch} from "../../app/store";
+import {addTasksThunk, removeTasksThunk, TasksStateType, updateTaskThunk} from "../store/task-reducer";
 import React, {useEffect} from "react";
 import {
     changeTodolistTitleThunk,
@@ -10,11 +10,11 @@ import {
     getTodoListThunk,
     removeTodolistThunk,
     TodolistDomainType
-} from "../components/store/todolists-reducer";
-import {TaskStatuses} from "../api/todolist-api";
+} from "../store/todolists-reducer";
+import {TaskStatuses} from "../../api/todolist-api";
 import {Grid, Paper} from "@mui/material";
-import {Todolist} from "../Todolist";
-import {AddItemForm} from "../components/AddItemForm";
+import {Todolist} from "../../Todolist";
+import {AddItemForm} from "../AddItemForm";
 import {Navigate} from "react-router-dom";
 import {authReducerStateType} from "../Login/auth-reducer";
 

@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import {CircularProgress, Container} from "@mui/material";
-import TodoListsList from "../TodoList/TodoListsList";
+import TodoListsList from "../components/TodoList/TodoListsList";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "./store";
 import {ErrorSnackbar} from "../components/ErrorSnackbar /ErrorSnackbar";
-import {Login} from "../Login/Login";
+import {Login} from "../components/Login/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
-import {meTC} from "../Login/auth-reducer";
+import {meTC} from "../components/Login/auth-reducer";
 import {ButtonAppBar} from "../components/ButtonAppBar";
 
 

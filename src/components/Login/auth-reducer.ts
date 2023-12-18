@@ -5,11 +5,11 @@ import {
     SetAppStatusACType,
     setIsInitializedAC,
     SetIsInitializedACType,
-} from "../app/app-reducer";
+} from "../../app/app-reducer";
 import {Dispatch} from "redux";
-import {authAPI, LoginParamsType, ResultCode} from "../api/todolist-api";
-import {appServerNetworkError} from "../utils/error-util";
-import {clearTodoListsDataAC, ClearTodoListsDataACType} from "../components/store/todolists-reducer";
+import {authAPI, LoginParamsType, ResultCode} from "../../api/todolist-api";
+import {appServerNetworkError} from "../../utils/error-util";
+import {clearTodoListsDataAC, ClearTodoListsDataACType} from "../store/todolists-reducer";
 import {AxiosError} from "axios";
 
 const initialState = {
