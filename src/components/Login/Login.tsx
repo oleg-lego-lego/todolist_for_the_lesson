@@ -12,6 +12,7 @@ import {authReducerStateType, loginTC} from "./auth-reducer";
 import {AppRootStateType, useAppDispatch} from "../../app/store";
 import {useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
+import {TextCopy} from "./textCopy/TextCopy";
 
 type errorsType = {
     email?: string,
@@ -65,8 +66,8 @@ export const Login = () => {
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
                     <FormLabel style={{width: '300px', padding: '20px 0 0'}}>
-                        <p>Email: free@samuraijs.com</p>
-                        <p>Password: free</p>
+                        <p >Email: <TextCopy text={'free@samuraijs.com'}/></p>
+                        <p>Password: <TextCopy text={'free'}/></p>
                     </FormLabel>
 
                     <FormGroup>
