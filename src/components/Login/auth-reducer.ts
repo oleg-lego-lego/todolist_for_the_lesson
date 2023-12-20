@@ -19,7 +19,7 @@ const initialState = {
 
 export type authReducerStateType = typeof initialState
 
-export const authReducer = (state = initialState, action: AuthActionsType): authReducerStateType => {
+export const authReducer = (state: authReducerStateType = initialState, action: AuthActionsType): authReducerStateType => {
     switch (action.type) {
         case 'login/SET-IS-LOGGED-IN':
             return {
@@ -74,6 +74,8 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<Auth
             if (res.data.resultCode === ResultCode.OK) {
                 dispatch(setIsLoggedInAC(true))
                 dispatch(setAppStatusAC('succeeded'))
+            } else {
+                appServerNetworkError(dispatch, 'user or password is incorrect')
             }
         })
         .catch((e: AxiosError) => {

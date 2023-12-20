@@ -18,12 +18,12 @@ export const TextCopy = (props: TextCopyPropsType) => {
 
     return (
         <Tooltip title={'Copied'} open={open} placement={'bottom'} followCursor>
-             <span>
+            <>
                 {props.text}
-                 <IconButton onClick={handleClick} style={{marginLeft: '5px'}}>
+                <IconButton onClick={handleClick} style={{marginLeft: '5px'}}>
                     <ContentCopyIcon/>
                 </IconButton>
-            </span>
+            </>
         </Tooltip>
     );
 };
