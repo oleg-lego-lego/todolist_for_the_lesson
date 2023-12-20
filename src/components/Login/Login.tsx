@@ -4,7 +4,6 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
-import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {useFormik} from "formik";
@@ -64,14 +63,14 @@ export const Login = () => {
     return <Grid container justifyContent={'center'}>
         <Grid item justifyContent={'center'}>
             <form onSubmit={formik.handleSubmit}>
-                <FormControl>
-                    <FormLabel style={{width: '300px', padding: '20px 0 0'}}>
-                        <p >Email: <TextCopy text={'free@samuraijs.com'}/></p>
-                        <p>Password: <TextCopy text={'free'}/></p>
-                    </FormLabel>
+                <FormControl style={{width: '300px', padding: '20px 0 0'}}>
+                    <span>Email: <TextCopy text={'free@samuraijs.com'}/></span>
+                    <span>Password: <TextCopy text={'free'}/></span>
 
                     <FormGroup>
                         <TextField
+                            id="email"
+                            autoComplete="email"
                             label="Email"
                             margin="normal"
                             {...formik.getFieldProps('email')}
