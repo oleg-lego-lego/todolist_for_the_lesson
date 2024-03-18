@@ -2,7 +2,8 @@ import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from 'r
 import {ActionTaskType, tasksReducer} from "../components/store/task-reducer";
 import {ActionTodolistType, todolistsReducer} from "../components/store/todolists-reducer";
 import {useDispatch} from "react-redux";
-import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
+
+import {thunk,  ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppActionType, appReducer} from "./app-reducer";
 import {AuthActionsType, authReducer} from "../components/Login/auth-reducer";
 
